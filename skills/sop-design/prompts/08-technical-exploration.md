@@ -203,7 +203,51 @@ graph TD
 ---
 
 #### 方案C: React Native
-[类似格式...]
+
+**技术栈明细**
+| 组件 | 技术 | 版本 | 用途 |
+|------|------|------|------|
+| 框架 | React Native | 0.73 | 跨平台UI |
+| 语言 | TypeScript | 5.3 | 开发语言 |
+| 状态管理 | Zustand | 4.4 | 轻量状态管理 |
+| 本地存储 | MMKV | 2.11 | 高性能本地存储 |
+| 后台任务 | react-native-background-timer | 2.4 | 后台计时 |
+| 导航 | React Navigation | 6.x | 页面路由 |
+
+**架构图**
+```mermaid
+graph TD
+    UI[React Native UI] --> Store[Zustand Store]
+    Store --> Service[Service Layer]
+    Service --> MMKV[MMKV Storage]
+    Service --> BGTimer[Background Timer]
+    BGTimer --> Notification[Push Notification]
+```
+
+**优点**
+1. JavaScript/TypeScript生态，前端开发者上手快
+2. 一套代码支持iOS和Android双平台
+3. 热重载，开发体验好
+4. npm生态丰富，第三方库多
+
+**缺点**
+1. 后台任务稳定性依赖原生桥接，不同机型有差异
+2. 性能略低于原生，复杂动画可能有卡顿
+3. 跨平台一致性不如Flutter
+4. 版本升级有时存在Breaking Change
+
+**适用场景**
+- 团队有前端背景，熟悉React/TypeScript
+- 需要快速原型验证
+- 已有Web版本，希望复用业务逻辑代码
+
+**风险点**
+- 后台计时在部分Android厂商ROM上被系统强杀: 使用前台服务（Foreground Service）绑定
+- RN版本升级可能引入兼容性问题: 锁定依赖版本，升级前充分测试
+
+**预估工作量**
+- 开发周期: 1.5-2.5周（MVP）
+- 团队规模: 1-2人
 
 ### 决策建议
 
